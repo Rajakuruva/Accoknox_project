@@ -1,0 +1,77 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6e7475;
+        }
+        .go-back {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .go-back:hover {
+            background-color: #0056b3;
+        }
+        .user-card {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            text-align: left;
+            width: 400px;
+            height: 150px;
+            box-sizing: border-box;
+        }
+        .user-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .user-card h5 {
+            flex-grow: 1;
+            margin: 0 15px;
+            text-align: center;
+        }
+        .user-card button {
+            margin-left: auto;
+            background-color: green;
+            color: white;
+            border: 0px;
+            padding: 10px;
+            border-radius: 10%;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <a href="{% url 'Display_profile' %}" class="go-back">Go back</a>
+    <center>
+        {% for a in user_dict %}
+            <div class="user-card">
+                {% for po in PO %}
+                    {% if po.user_name == a %}
+                        <img src="{{ po.profile_pic.url }}" alt="Profile Picture">
+                    {% endif %}
+                {% endfor %}
+                <h5>{{ a.username }}</h5>
+            </div>
+        {% endfor %}
+    </center>
+</body>
+</html>

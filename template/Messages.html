@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6e7475;
+        }
+        .go-back {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .go-back:hover {
+            background-color: #0056b3;
+        }
+        .user-card {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            text-align: left;
+            width: 400px;
+            height: 150px;
+            box-sizing: border-box;
+            background-color: #f9f9f9; /* Light background color for better readability */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        .user-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            object-position: top;
+            border: 2px solid #007bff;
+        }
+        .user-card h5 {
+            flex-grow: 1;
+            margin: 0 15px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .user-card .buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+        .user-card button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .user-card .Accecpt-button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .user-card .Reject-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'Display_profile' %}" class="go-back">Go back</a>
+    <center>
+        {% if FO %}
+            {% for a in FO %}
+                <div class="user-card">
+                    {% for po in PO %}
+                        {% if po.user_name.username == a.User %}
+                            <img src="{{ po.profile_pic.url }}" alt="Profile Picture">
+                        {% endif %}
+                    {% endfor %}
+                    <h5>{{ a.User }}</h5>
+                    <div class="buttons">
+                        <a href="{% url 'accept' a.id %}" class="Accecpt-button nav-link">Accept</a>
+                        <a href="{% url 'reject' a.id %}" class="Reject-button">Reject</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="user-card">
+                <h5>No Friend Requests here</h5>
+            </div>
+        {% endif %}
+    </center>
+</body>
+</html>

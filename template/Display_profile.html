@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('{% static "images/Login_back_1.jpeg" %}') no-repeat center center fixed;
+            background-color: rgb(9, 49, 66);
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .profile-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .profile-buttons {
+            display: flex;
+        }
+        .profile-buttons button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .profile-info {
+            text-align: center;
+        }
+        .profile-info img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .profile-info h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>User Profile</h2>
+            <div class="profile-buttons">
+                <form action="{% url 'Show_users' %}" method="get">
+                    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Users</button>
+                </form>
+                <br><br>
+                <form action="{% url 'Messages' %}" method="get">
+                    <button type="submit" class="btn btn-dark" data-mdb-ripple-init>Messages</button>
+                </form>
+                <form action="{% url 'Frineds_list' %}" method="get">
+                    <button type="submit" class="btn btn-dark" data-mdb-ripple-init>Frineds_list</button>
+                </form>
+            </div>
+        </div>
+        <div class="profile-info">
+            <img src="{{ PO.profile_pic.url }}" alt="Profile Picture">
+            <h3>{{ UO.username }}</h3>
+            <p>{{ UO.email }}</p>
+        </div>
+    </div>
+</body>
+</html>

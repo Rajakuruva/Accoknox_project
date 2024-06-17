@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('{% static "images/Back.jpeg" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: rgba(10, 11, 12, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        .signup-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .signup-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .signup-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .signup-container input[type="text"],
+        .signup-container input[type="email"],
+        .signup-container input[type="password"],
+        .signup-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .signup-container input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .signup-container input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+    
+        .help-text {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Signup Page</h1>
+        </div>
+        <div class="signup-container">
+            <h2>Create an Account</h2>
+            <form method="POST" enctype="multipart/form-data" class="form-container">
+                <br>
+                {% csrf_token %}
+                {{ user_form.non_field_errors }}
+                <div class="form-group">
+                    <label for="{{ user_form.username.id_for_label }}">Fullname</label>
+                    {{ user_form.username }}
+                    {% if user_form.username.errors %}
+                        <div class="error">{{ user_form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.email.id_for_label }}">Email</label>
+                    {{ user_form.email }}
+                    {% if user_form.email.errors %}
+                        <div class="error">{{ user_form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.re_email.id_for_label }}">Re-enter Email</label>
+                    {{ user_form.re_email }}
+                    {% if user_form.re_email.errors %}
+                        <div class="error">{{ user_form.re_email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.password.id_for_label }}">Password</label>
+                    {{ user_form.password }}
+                    <p class="help-text">{{ user_form.password.help_text }}</p>
+                    {% if user_form.Password.errors %}
+                        <div class="error">{{ user_form.password.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ user_form.re_password.id_for_label }}">Re-enter Password</label>
+                    {{ user_form.re_password }}
+                    {% if user_form.re_password.errors %}
+                        <div class="error">{{ user_form.re_password.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ profle_form.profile_pic.id_for_label }}">Profile Pic</label>
+                    {{ profle_form.profile_pic }}
+                    {% if profle_form.profile_pic.errors %}
+                        <div class="error">{{ profle_form.profile_pic.errors }}</div>
+                    {% endif %}
+                </div>
+                <p>You have already account ? <a href="{% url 'user_login' %}">Login</a></p>
+                <input type="submit" value="Register">
+                <br><br>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js/mdb.min.js' %}"></script>
+</body>
+</html>
